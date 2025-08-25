@@ -1,0 +1,26 @@
+body{font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif; margin:0; width:380px; min-height:520px; background:#fff; color:#111}
+.app-header{font-weight:800; font-size:26px; padding:14px 16px; border-bottom:1px solid #eee}
+.view{display:none; padding:10px 12px 72px}
+.view.active{display:block}
+.empty{margin-top:140px; text-align:center; color:#777}
+.fab{position:fixed; right:18px; bottom:18px; width:56px; height:56px; border-radius:28px; font-size:28px; border:none; background:#f9c20a; color:#000; box-shadow:0 8px 24px rgba(0,0,0,.18); cursor:pointer}
+.reminder-list{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px}
+.card{display:flex; align-items:center; gap:10px; background:#f6f7fb; border-radius:14px; padding:12px}
+.card.done{opacity:.45}
+.card .title{font-weight:700; margin-bottom:4px}
+.card .meta{font-size:12px; color:#555}
+.spacer{flex:1}
+.switch{appearance:none; width:46px; height:26px; border-radius:99px; background:#ddd; position:relative; outline:none; cursor:pointer}
+.switch:checked{background:#f9c20a}
+.switch::after{content:""; position:absolute; top:3px; left:3px; width:20px; height:20px; border-radius:10px; background:#fff; transition:left .2s}
+.switch:checked::after{left:23px}
+.input{box-sizing:border-box; width:100%; padding:12px; border:1px solid #e4e6ef; border-radius:12px; font-size:14px; background:#fff}
+.row{display:flex; gap:10px; margin-top:10px}
+.form-title{font-weight:800; font-size:22px; padding:10px 0 6px 0}
+.label{margin-top:10px; color:#666; font-size:12px}
+.btn{padding:10px 14px; border-radius:10px; border:none; cursor:pointer}
+.btn.primary{background:#111; color:#fff}
+.btn.secondary{background:#e8eaef; color:#111}
+.form-actions{justify-content:flex-end}
+.checkbox{width:18px; height:18px}
+.drag-handle{width:14px; height:14px; opacity:.4} 
