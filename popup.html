@@ -3,32 +3,112 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>Zero Excuse</title>
+	<title>Zercuse</title>
 	<link rel="stylesheet" href="popup.css" />
 </head>
 <body>
-	<header class="app-header">Zero Excuse</header>
-	<main id="view-list" class="view active">
-		<div id="empty" class="empty">no tasks added</div>
-		<ul id="reminders" class="reminder-list"></ul>
-		<button id="addBtn" class="fab" title="Add">+</button>
-	</main>
-	<main id="view-form" class="view">
-		<header class="form-title">New Task</header>
-		<form id="form">
-			<label class="label">Task</label>
-			<input id="title" class="input" type="text" placeholder="Task name" required />
-			<div class="label">Alarm</div>
-			<div class="row">
-				<input id="date" type="date" class="input" required />
-				<input id="time" type="time" class="input" required />
+	<header class="app-header">
+		<span>Zercuse</span>
+		<button id="themeToggle" class="theme-toggle" title="Toggle theme">
+			<span class="theme-icon">🌙</span>
+		</button>
+	</header>
+	
+	<!-- Persistent Task Creation Form -->
+	<section class="create-section">
+		<form id="form" class="create-form">
+			<div class="form-row">
+				<input id="title" class="task-input" type="text" placeholder="What do you need to remember?" required />
+				<button type="submit" class="create-btn">Add</button>
 			</div>
-			<div class="row form-actions">
-				<button type="button" id="cancel" class="btn secondary">Cancel</button>
-				<button type="submit" class="btn primary">Save</button>
+			<div class="quick-actions">
+				<button type="button" class="quick-btn" data-minutes="5">5 min</button>
+				<button type="button" class="quick-btn" data-minutes="10">10 min</button>
+				<button type="button" class="quick-btn" data-minutes="15">15 min</button>
+				<button type="button" class="quick-btn" data-minutes="30">30 min</button>
+				<button type="button" class="quick-btn" data-minutes="60">1h</button>
+			</div>
+			<div class="form-row">
+				<input id="date" type="date" class="date-input" required />
+				<input id="time" type="time" class="time-input" required />
 			</div>
 		</form>
+	</section>
+	
+	<!-- Divider -->
+	<div class="section-divider">
+		<span>Your Reminders</span>
+	</div>
+	
+	<!-- Task List -->
+	<main class="task-list-section">
+		<div id="empty" class="empty">no reminders added</div>
+		<ul id="reminders" class="reminder-list"></ul>
 	</main>
+	
+	<!-- Subtle Footer -->
+	<footer class="extension-footer">
+		<span>Powered by <a href="https://keplerorigins.com" target="_blank" rel="noopener">KeplerOrigins.com</a></span>
+		<div class="attribution"><a href="https://www.flaticon.com/free-icons/clock" title="clock icons" target="_blank" rel="noopener">Clock icons created by Freepik - Flaticon</a></div>
+	</footer>
+	
+	<!-- Edit Task Form as Modal -->
+	<div id="editModal" class="modal-overlay">
+		<div class="modal-content">
+			<div class="modal-header"><h3>Edit Task</h3></div>
+			<div class="modal-body">
+				<form id="editForm">
+					<label class="label">Task</label>
+					<input id="editTitle" class="input" type="text" placeholder="Task name" required />
+					<div class="label">Alarm</div>
+					<div class="row">
+						<input id="editDate" type="date" class="input" required />
+						<input id="editTime" type="time" class="input" required />
+					</div>
+					<div class="row">
+						<button id="editSoundToggle" type="button" class="sound-toggle" title="Sound on. Click to mute" aria-label="Toggle sound"></button>
+					</div>
+					<div class="row form-actions">
+						<button type="button" id="editCancel" class="btn secondary">Cancel</button>
+						<button type="submit" class="btn primary">Update</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Custom Confirmation Modal -->
+	<div id="confirmModal" class="modal-overlay">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3>Delete Reminder</h3>
+			</div>
+			<div class="modal-body">
+				<p id="confirmMessage">Are you sure you want to delete this reminder?</p>
+			</div>
+			<div class="modal-actions">
+				<button id="confirmCancel" class="btn secondary">Cancel</button>
+				<button id="confirmDelete" class="btn danger">Delete</button>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Reminder Alert Modal -->
+	<div id="reminderModal" class="modal-overlay">
+		<div class="modal-content reminder-alert">
+			<div class="modal-header">
+				<h3>⏰ Reminder</h3>
+			</div>
+			<div class="modal-body">
+				<p id="reminderMessage">Time to complete your task!</p>
+			</div>
+			<div class="modal-actions">
+				<button id="reminderSnooze" class="btn secondary">Snooze</button>
+				<button id="reminderDone" class="btn primary">Done</button>
+			</div>
+		</div>
+	</div>
+	
 	<script src="popup.js" type="module"></script>
 </body>
-</html> 
+</html>

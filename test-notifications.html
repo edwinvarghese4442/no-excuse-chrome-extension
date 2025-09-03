@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Notifications</title>
+</head>
+<body>
+    <h1>Test Chrome Notifications</h1>
+    <button id="testBtn">Test Notification</button>
+    <div id="result"></div>
+    
+    <script>
+        document.getElementById('testBtn').addEventListener('click', async () => {
+            try {
+                const result = await chrome.notifications.create('test-123', {
+                    type: 'basic',
+                    title: 'Test Notification',
+                    message: 'This is a test notification',
+                    priority: 2,
+                    requireInteraction: true,
+                    buttons: [
+                        { title: 'Button 1' },
+                        { title: 'Button 2' }
+                    ]
+                });
+                document.getElementById('result').innerHTML = 'Notification created successfully: ' + result;
+            } catch (error) {
+                document.getElementById('result').innerHTML = 'Error: ' + error.message;
+            }
+        });
+    </script>
+</body>
+</html>

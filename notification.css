@@ -1,0 +1,173 @@
+:root {
+  /* Dark theme colors */
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --accent-primary: #ffd700;
+  --accent-secondary: #ffed4e;
+  --border-color: #404040;
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  --success-color: #4a7c59;
+  --danger-color: #ff6b6b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.notification-container {
+  background: var(--bg-secondary);
+  border-radius: 20px;
+  padding: 40px;
+  text-align: center;
+  box-shadow: 0 20px 40px var(--shadow-color);
+  border: 1px solid var(--border-color);
+  max-width: 500px;
+  width: 100%;
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.reminder-icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 10px var(--accent-primary));
+  }
+  50% {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 20px var(--accent-primary));
+  }
+}
+
+.reminder-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--accent-primary);
+  margin-bottom: 16px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.reminder-message {
+  font-size: 18px;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+  line-height: 1.5;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 140px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn-snooze {
+  background: var(--accent-primary);
+  color: var(--bg-primary);
+}
+
+.btn-snooze:hover {
+  background: var(--accent-secondary);
+  box-shadow: 0 8px 16px rgba(255, 215, 0, 0.3);
+}
+
+.btn-done {
+  background: var(--success-color);
+  color: var(--text-primary);
+}
+
+.btn-done:hover {
+  background: #5a8c69;
+  box-shadow: 0 8px 16px rgba(74, 124, 89, 0.3);
+}
+
+.auto-close-notice {
+  margin-top: 24px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .notification-container {
+    padding: 30px 20px;
+    margin: 10px;
+  }
+  
+  .reminder-title {
+    font-size: 20px;
+  }
+  
+  .reminder-message {
+    font-size: 16px;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .btn {
+    width: 100%;
+    max-width: 200px;
+  }
+}
+/* Bigger task title in reminder tab */
+.reminder-title{font-size:28px; font-weight:800; color:var(--text-primary); margin-bottom:12px}
+#reminderMessage{font-size:22px; font-weight:700}
+/* Smaller app name, larger task name with spacing */
+.notification-header h2{font-size:14px; font-weight:600; opacity:.75; margin-bottom:8px}
+#reminderMessage{font-size:28px; font-weight:800; line-height:1.35; margin-bottom:20px}
