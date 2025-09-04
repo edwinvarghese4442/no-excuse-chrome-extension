@@ -1,11 +1,14 @@
 {
   "manifest_version": 3,
-  "name": "Zero Excuse Reminders",
+  "name": "Zercuse Reminders",
   "description": "Simple reminders with alarms and notifications.",
   "version": "1.2.1",
   "action": {
-    "default_title": "Zero Excuse",
-    "default_popup": "popup.html"
+    "default_title": "Zercuse",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "128": "icons/zercuse.png"
+    }
   },
   "permissions": [
     "storage",
@@ -18,7 +21,9 @@
     "service_worker": "background.js",
     "type": "module"
   },
-  "icons": {},
+  "icons": {
+    "128": "icons/zercuse.png"
+  },
   "options_ui": {
     "page": "popup.html",
     "open_in_tab": false

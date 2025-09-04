@@ -71,7 +71,7 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
 		const notificationId = `reminder:${id}`;
 		chrome.notifications.create(notificationId, {
 			type: 'basic',
-			title: '⏰ Zero Excuse Reminder',
+			title: '⏰ Zercuse Reminders',
 			message: reminder.title,
 			priority: 2,
 			requireInteraction: true,

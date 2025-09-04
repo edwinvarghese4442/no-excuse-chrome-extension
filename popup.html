@@ -18,7 +18,7 @@
 	<section class="create-section">
 		<form id="form" class="create-form">
 			<div class="form-row">
-				<input id="title" class="task-input" type="text" placeholder="What do you need to remember?" required />
+				<input id="title" class="task-input" type="text" placeholder="What do you need to remember?" required maxlength="35" />
 				<button type="submit" class="create-btn">Add</button>
 			</div>
 			<div class="quick-actions">
@@ -39,6 +39,13 @@
 	<div class="section-divider">
 		<span>Your Reminders</span>
 	</div>
+
+	<!-- Selection Toolbar -->
+	<div class="selection-toolbar" aria-label="Selection controls" hidden>
+		<div class="selection-actions" hidden>
+			<button id="deleteSelected" class="btn danger" type="button" disabled>Delete selected</button>
+		</div>
+	</div>
 	
 	<!-- Task List -->
 	<main class="task-list-section">
@@ -49,7 +56,6 @@
 	<!-- Subtle Footer -->
 	<footer class="extension-footer">
 		<span>Powered by <a href="https://keplerorigins.com" target="_blank" rel="noopener">KeplerOrigins.com</a></span>
-		<div class="attribution"><a href="https://www.flaticon.com/free-icons/clock" title="clock icons" target="_blank" rel="noopener">Clock icons created by Freepik - Flaticon</a></div>
 	</footer>
 	
 	<!-- Edit Task Form as Modal -->
@@ -59,7 +65,7 @@
 			<div class="modal-body">
 				<form id="editForm">
 					<label class="label">Task</label>
-					<input id="editTitle" class="input" type="text" placeholder="Task name" required />
+					<input id="editTitle" class="input" type="text" placeholder="Task name" required maxlength="35" />
 					<div class="label">Alarm</div>
 					<div class="row">
 						<input id="editDate" type="date" class="input" required />
