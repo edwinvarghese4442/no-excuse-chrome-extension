@@ -4,6 +4,7 @@ const STORAGE_KEY = 'reminders_v1';
 const reminderMessage = document.getElementById('reminderMessage');
 const reminderSnooze = document.getElementById('reminderSnooze');
 const reminderDone = document.getElementById('reminderDone');
+const notificationContainer = document.querySelector('.notification-container');
 
 let currentReminder = null;
 
@@ -16,8 +17,16 @@ async function initializeNotification() {
 			currentReminder = current_reminder;
 			reminderMessage.textContent = current_reminder.title;
 		}
+		// start subtle vibration (respecting reduced motion via CSS)
+		notificationContainer.classList.add('vibrating');
 	} catch (e) {
 		console.error('Failed to load reminder data:', e);
+	}
+}
+
+function stopVibration(){
+	if (notificationContainer){
+		notificationContainer.classList.remove('vibrating');
 	}
 }
 
@@ -41,7 +50,8 @@ async function saveUpdate(updated) {
 }
 
 async function schedule(reminder) {
-	if (!reminder.enabled || reminder.completed) return;
+	if (!reminder || !reminder.enabled || reminder.completed) return;
+	if (!Number.isFinite(reminder.when)) return;
 	if (reminder.when <= Date.now()) return;
 	await chrome.alarms.create(`reminder:${reminder.id}`, { when: reminder.when });
 }
@@ -82,6 +92,7 @@ async function closeTab() {
 reminderSnooze.addEventListener('click', async () => {
 	// Stop beep immediately
 	await stopBeep();
+	stopVibration();
 	
 	if (currentReminder) {
 		// Snooze for 5 minutes
@@ -99,6 +110,7 @@ reminderSnooze.addEventListener('click', async () => {
 reminderDone.addEventListener('click', async () => {
 	// Stop beep immediately
 	await stopBeep();
+	stopVibration();
 	
 	if (currentReminder) {
 		currentReminder.completed = true;
@@ -113,6 +125,7 @@ reminderDone.addEventListener('click', async () => {
 
 // Auto-close after 60 seconds if no action is taken
 setTimeout(async () => {
+	stopVibration();
 	await closeTab();
 }, 60000);
 

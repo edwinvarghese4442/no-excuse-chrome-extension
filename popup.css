@@ -350,6 +350,10 @@ body {
 .task-list-section {
   padding: 0 16px 16px;
   flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
 }
 
 .empty {
@@ -811,7 +815,7 @@ body {
 body{display:flex; flex-direction:column}
 .app-header{position:sticky; top:0; z-index:10}
 .create-section{position:sticky; top:56px; z-index:9}
-.task-list-section{overflow:auto; max-height:calc(520px - 56px - 120px)}
+.task-list-section{overflow:auto}
 /* Layout fixes: keep title visible, compact meta, icons fixed width */
 .card{position:relative}
 .card .task-content{display:flex; align-items:center; gap:8px; min-width:0}

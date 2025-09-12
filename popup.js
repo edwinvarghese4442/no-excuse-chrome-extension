@@ -132,13 +132,12 @@ function updateThemeIcon(theme) {
 
 // Initialize form with current date/time
 function initializeForm() {
-	const now = new Date();
+	const now = new Date(Date.now() + 30 * 60 * 1000);
 	now.setSeconds(0, 0);
-	now.setMinutes(now.getMinutes() + 5 - (now.getMinutes() % 5));
 	
-	// Set minimum date to today
-	const today = now.toISOString().slice(0, 10);
-	dateInput.value = today;
+	// Set minimum date to today's system date
+	const today = new Date().toISOString().slice(0, 10);
+	dateInput.value = now.toISOString().slice(0, 10);
 	dateInput.min = today;
 	timeInput.value = now.toTimeString().slice(0, 5);
 	titleInput.focus();
@@ -147,7 +146,8 @@ function initializeForm() {
 // Add event listeners for quick action buttons
 document.querySelectorAll('.quick-btn').forEach(btn => {
 	btn.addEventListener('click', (e) => {
-		const minutes = parseInt(e.target.dataset.minutes);
+		const source = e.currentTarget || btn;
+		const minutes = parseInt(source.dataset.minutes, 10);
 		handleQuickAction(minutes);
 	});
 });
@@ -157,6 +157,11 @@ async function handleQuickAction(minutes) {
 	const title = titleInput.value.trim().slice(0,35);
 	if (!title) {
 		titleInput.focus();
+		return;
+	}
+	
+	// Validate minutes to avoid NaN or invalid values
+	if (!Number.isFinite(minutes) || minutes <= 0) {
 		return;
 	}
 	
@@ -641,7 +646,8 @@ async function saveAll(items) {
 }
 
 async function schedule(reminder) {
-	if (!reminder.enabled || reminder.completed) return;
+	if (!reminder || !reminder.enabled || reminder.completed) return;
+	if (!Number.isFinite(reminder.when)) return;
 	if (reminder.when <= Date.now()) return;
 	await chrome.alarms.create(`reminder:${reminder.id}`, { when: reminder.when });
 }
