@@ -1,4 +1,4 @@
-# Zero Excuse Reminders (Chrome Extension)
+# Zercuse Reminders (Chrome Extension)
 
 Simple Manifest V3 extension to add reminders with an alarm and notification.
 
@@ -13,7 +13,7 @@ Simple Manifest V3 extension to add reminders with an alarm and notification.
 1. Open Chrome and navigate to `chrome://extensions`.
 2. Enable "Developer mode" (top-right toggle).
 3. Click "Load unpacked" and select this folder: `/Users/edwinvarghese/Documents/GitHub/no-excuse-chrome-extension`.
-4. The extension will appear as "Zero Excuse Reminders". Pin it to the toolbar.
+4. The extension will appear as "Zercuse Reminders". Pin it to the toolbar.
 5. Click the toolbar icon to open the popup.
 6. Add a new task, choose a date and time in the near future, and Save.
 7. Keep Chrome running. When the time arrives, you should see a notification and hear beeps.
