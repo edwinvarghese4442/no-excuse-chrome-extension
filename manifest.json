@@ -15,8 +15,12 @@
     "alarms",
     "notifications",
     "offscreen",
-    "tabs"
+    "identity"
   ],
+  "oauth2": {
+    "client_id": "REPLACE_WITH_YOUR_CLIENT_ID.apps.googleusercontent.com",
+    "scopes": ["openid", "email", "profile"]
+  },
   "background": {
     "service_worker": "background.js",
     "type": "module"

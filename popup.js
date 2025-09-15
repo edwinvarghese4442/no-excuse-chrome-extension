@@ -1,7 +1,9 @@
 const STORAGE_KEY = 'reminders_v1';
 const THEME_KEY = 'theme_preference';
+const AUTH_KEY = 'auth_state_v1';
 
 /** @typedef {{id:string,title:string,when:number,enabled:boolean,completed:boolean,beepEnabled:boolean}} Reminder */
+/** @typedef {{mode:'guest'|'user', profile?:{email?:string,name?:string,picture?:string}}} AuthState */
 
 const editView = document.getElementById('view-edit');
 const ul = document.getElementById('reminders');
@@ -40,6 +42,12 @@ const reminderDone = document.getElementById('reminderDone');
 const selectionActions = document.querySelector('.selection-actions');
 const deleteSelectedBtn = document.getElementById('deleteSelected');
 
+// Auth elements
+const authOverlay = document.getElementById('authOverlay');
+const googleSignInBtn = document.getElementById('googleSignInBtn');
+const guestContinueBtn = document.getElementById('guestContinueBtn');
+const authErrorEl = document.getElementById('authError');
+
 let reminderToDelete = null;
 let reminderToEdit = null;
 let currentReminder = null;
@@ -72,6 +80,53 @@ function formatTitleForCard(rawTitle){
 	const line1 = limited.slice(0, breakIdx).trimEnd();
 	const line2 = limited.slice(breakIdx).trimStart();
 	return `${escapeHtml(line1)}<br>${escapeHtml(line2)}`;
+}
+
+async function getAuthState(){
+	const { [AUTH_KEY]: s } = await chrome.storage.local.get(AUTH_KEY);
+	return s || null;
+}
+async function setAuthState(state){
+	await chrome.storage.local.set({ [AUTH_KEY]: state });
+}
+function showAuthOverlay(){
+	if (authOverlay){ authOverlay.hidden = false; }
+}
+function hideAuthOverlay(){
+	if (authOverlay){ authOverlay.hidden = true; }
+}
+function setAuthError(msg){ if (authErrorEl) authErrorEl.textContent = msg || ''; }
+
+async function signInWithGoogle(){
+	setAuthError('');
+	try {
+		// Requires manifest oauth2 and identity permission
+		const token = await chrome.identity.getAuthToken({ interactive: true });
+		if (!token) throw new Error('No token received');
+		// Fetch basic profile
+		const resp = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+			headers: { Authorization: `Bearer ${token}` }
+		});
+		if (!resp.ok) throw new Error('Failed to fetch user profile');
+		const profile = await resp.json();
+		/** @type {AuthState} */
+		const state = { mode: 'user', profile: { email: profile.email, name: profile.name, picture: profile.picture } };
+		await setAuthState(state);
+		hideAuthOverlay();
+	} catch (e) {
+		setAuthError('Sign-in failed. Please try again or continue without account.');
+	}
+}
+
+if (googleSignInBtn){
+	googleSignInBtn.addEventListener('click', (e) => { e.preventDefault(); signInWithGoogle(); });
+}
+if (guestContinueBtn){
+	guestContinueBtn.addEventListener('click', async (e) => {
+		e.preventDefault();
+		await setAuthState({ mode: 'guest' });
+		hideAuthOverlay();
+	});
 }
 
 function enterSelectionMode(){
@@ -692,6 +747,12 @@ document.addEventListener('mousedown', (e) => {
 // Initialize everything
 async function initialize() {
 	await loadTheme();
+	const auth = await getAuthState();
+	if (!auth || (auth.mode !== 'guest' && auth.mode !== 'user')) {
+		showAuthOverlay();
+	} else {
+		hideAuthOverlay();
+	}
 	await render();
 	initializeForm();
 }

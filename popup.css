@@ -1003,3 +1003,12 @@ body{display:flex; flex-direction:column}
 
 /* Light mode: ensure Delete Selected text is white */
 [data-theme="light"] #deleteSelected{color:#fff !important}
+
+/* Auth overlay */
+.auth-overlay{position:fixed; inset:0; background:rgba(0,0,0,0.6); display:flex; align-items:center; justify-content:center; z-index:100}
+.auth-overlay[hidden]{display:none}
+.auth-card{background:var(--bg-secondary); border:1px solid var(--border-color); border-radius:12px; padding:16px; width:calc(100% - 40px); max-width:320px; box-shadow:0 8px 24px var(--shadow-color); text-align:center}
+.auth-card h2{margin:0 0 8px 0; color:var(--accent-primary)}
+.auth-subtext{margin:0 0 12px 0; color:var(--text-secondary); font-size:13px}
+.auth-card .btn{width:100%; margin:6px 0}
+.auth-error{margin-top:8px; color:var(--danger-color); font-size:12px; min-height:14px}

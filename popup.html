@@ -115,6 +115,17 @@
 		</div>
 	</div>
 	
+	<!-- Auth Overlay -->
+	<div id="authOverlay" class="auth-overlay" hidden>
+		<div class="auth-card">
+			<h2>Welcome to Zercuse</h2>
+			<p class="auth-subtext">Sign in to sync across devices, or continue without an account.</p>
+			<button id="googleSignInBtn" class="btn primary" type="button">Continue with Google</button>
+			<button id="guestContinueBtn" class="btn secondary" type="button">Continue without account</button>
+			<div id="authError" class="auth-error" aria-live="polite"></div>
+		</div>
+	</div>
+	
 	<script src="popup.js" type="module"></script>
 </body>
 </html>
