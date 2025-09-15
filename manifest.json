@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Zercuse Reminders",
   "description": "Simple reminders with alarms with snooze, silent mode, and popup notifications",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "action": {
     "default_title": "Zercuse",
     "default_popup": "popup.html",
@@ -14,8 +14,7 @@
     "storage",
     "alarms",
     "notifications",
-    "offscreen",
-    "tabs"
+    "offscreen"
   ],
   "background": {
     "service_worker": "background.js",

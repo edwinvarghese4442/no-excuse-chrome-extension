@@ -391,6 +391,9 @@ body {
   color: var(--accent-primary);
 }
 
+.extension-footer .feedback-link{color:var(--accent-primary); font-weight:350; padding:2px 6px; border-radius:6px; background:rgba(37, 34, 18, 0.15); margin-left:6px}
+.extension-footer .feedback-link:hover{background:rgba(43, 41, 29, 0.25); color:var(--accent-secondary)}
+
 /* View Management */
 .view {
   display: none;
